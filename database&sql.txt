@@ -1,0 +1,9 @@
+데이터베이스 알아보기
+데이터베이스(Database, DB) - 데이터의 집합
+DBMS(Database Management System) - 데이터베이스를 관리하고 운영해주는 시스템
+DBMS의 전제 조건 - 대용량, 공유(여러 사용자가 동시에 접근 가능)
+관계형 DBMS(RDBMS) - 테이블이라는 최소 단위로 구성, 테이블은 하나 이상의 열과 행으로 이루어져 있다.
+SQL(Structured Query Language) - DBMS에 데이터를 구축, 관리하고 활용하기 위해 사용되는 언어
+표준SQL - 국제 표준화 기구에서 지정한 SQL에 대한 표준
+MySQL Server - MySQL의 여러 소프트웨어 중 엔진 기능하는 핵심 소프트웨어(DBMS)
+MySQL Workbench - MySQL 서버에. 접속/연결하기 위한 클라이언트 도구. 이곳에 SQL문을 입력하고 실행 함
