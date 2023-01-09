@@ -1,0 +1,110 @@
+SQL 기본 문법
+
+SELECT 열_이름
+	FROM 테이블_이름
+	WHERE 조건식
+	GROUP BY 열_이름
+	HAVING 조건식
+	ORDER BY 열_이름
+	LIMIT 숫자
+
+use문 : 어떤 데이터베이스를 사용할 것인지 지정(여러번 사용 가능)
+
+AND 조건
+ex. WHERE height >= 165 AND mem_number > 6;
+
+OR 조건
+둘 중 하나만 충족해도 된다.
+
+BETWEEN
+ex. WHERE height >= 163 AND height <= 165;
+== WHERE height BETWEEN 163 AND 165;
+
+OR
+ex. WHERE addr = ‘경기’ OR addr = ‘전남’ OR addr = ‘경남’;
+== WHERE addr IN(‘경기’, ‘전남’, ’경남’);
+
+LIKE
+ex. WHERE mem_name LIKE ‘우%’;
+output : 우주인, 우주 etc
+
+ex. WHERE mem_name LIKE ‘__핑크’;
+output : 에이핑크, 블랙핑크. 언더바(_) 하나당 한 글자
+
+서브 쿼리(subquery)
+- SELECT 안에 또 다른 SELECT가 들어간 것(서브 쿼리 혹은 하위 쿼리)
+장점 : 2개의 SQL을 하나로 만듦으로써 하나의 SQL만 관리하면 되므로 더 간단해진다.
+ex. SELECT mem_name, height FROM member
+	WHERE > (SELECT height FROM member WHERE mem_name = ‘에이핑크’);
+
+주석(remark) : 하이픈(-) 2개와 설명으로 구성
+VARCHAR : 문자형으로 CHAR와 거의 비슷함
+AUTO_INCREMENT : 자동으로 숫자를 입력시켜줌. 테이블 생성할 때 지정함
+별칭(alias) : SELECT문에서 실제 열 이름 대신에 출력되도록 설정하는 문자
+% : 문자열에서 여러 문자에 대응하는 기호
+_ : 문자열에서 한 문자에 대응하는 기호
+
+ORDER BY 절
+- 결과를 정렬해서 보여준다. 기본값은 ASC, 내림차순으로 하고 싶다면 DESC
+
+LIMIT
+- LIMIT는 출력하는 개수를 제한한다.
+LIMIT 3 == LIMIT 0, 3
+LIMIT 시작, 개수 == LIMIT 개수 OFFSET 시작
+
+DISTINCT
+- 중복된 데이터를 제거하고 1개만 남긴다.
+ex. SELECT DISTINCT addr FROM member;
+
+GROUP BY 절
+GROUP BY와 함께 주로 사용되는 집계 함수(aggregate function)
+SUM() : 합계
+AVG() : 평균
+MIN() : 최솟값
+MAX() : 최댓값 COUNT() : 행의 개수를 센다
+COUNT(DISTINCT) : 행의 개수를 센다.(중복은 1개만 인정)
+
+HAVING 절
+- GROUP BY의 조건문
+
+INSERT
+- 데이터를 입력
+INSERT INTO 테이블 [(열1, 열2, …)] VALUES (값1, 값2, …)
+
+AUTO_INCREMENT
+- 자동으로 입력하고 싶을 때 사용, AUTO_INCREMENT를 지정하면 PRIMARY KEY로 지정
+
+- AUTO_INCREMENT로 어디까지 증가 되었는지 알고싶을 때는
+SELECT LAST_INSERT_ID(); 사용하면 됨
+
+- AUTO_INCREMENT로 입력되는 다음 값을 100부터 시작하도록 변경하고 싶다면
+ALTER TABLE hongong2 AUTO_INCREMENT=100;
+
+- 1000부터 시작하고 싶고 증가값을 3으로 하고싶다면
+ALTER TABLE hongong3 AUTO_INCREMENT=1000;
+SET @@auto_increment_increment=3;	<— 시스템 변수
+
+SELECT @@시스템 변수 <— 시스템 변수의 값 확인
+SHOW GLOBAL VARIABLES <— 전체 시스템 변수의 종류
+
+INSERT INTO ~ SELECT
+- 다른 테이블의 데이터를 한 번에 입력하는 명령문
+
+DESC(describe)가 테이블의 구조를 알려줌
+
+
+UPDATE
+- 데이터를 수정
+UPDATE 테이블_이름
+	SET 열=1값, 열2=값2, …
+	WHERE 조건;
+
+DELETE
+- 데이터를 삭제
+DELETE FROM 테이블이름 WHERE 조건;
+
+TRUNCATE : DELETE와 비슷한 기능이지만 전체 행을 삭제할 때 사용
+
+DELETE 문은 삭제하는데 오래 걸림
+DROP 문은 테이블 자체를 삭제하지만 순식간에 삭제
+TRUNCATE 문은 DELETE와 동일한 효과를 내지만 속도가 매우 빠름
